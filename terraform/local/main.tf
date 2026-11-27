@@ -16,6 +16,7 @@ module "nginx" {
   nginx_image    = var.nginx_image
   external_port  = var.external_port
   internal_port  = var.internal_port
+  network_name   = docker_network.ai_network.name
 }
 
 moved {
