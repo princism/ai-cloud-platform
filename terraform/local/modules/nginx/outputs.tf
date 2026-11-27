@@ -12,3 +12,7 @@ output "nginx_url" {
   description = "Nginx access URL"
   value       = "http://localhost:${var.external_port}"
 }
+output "image_id" {
+  description = "Nginx Docker image ID"
+  value       = docker_image.nginx.image_id
+}
