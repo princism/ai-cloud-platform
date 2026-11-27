@@ -9,18 +9,21 @@ terraform {
 
 provider "docker" {}
 
-resource "docker_image" "nginx" {
-  name         = var.nginx_image
-  keep_locally = true
+module "nginx" {
+  source = "./modules/nginx"
+
+  container_name = var.container_name
+  nginx_image    = var.nginx_image
+  external_port  = var.external_port
+  internal_port  = var.internal_port
 }
 
-resource "docker_container" "nginx" {
-  name  = var.container_name
-  image = docker_image.nginx.image_id
+moved {
+  from = docker_image.nginx
+  to   = module.nginx.docker_image.nginx
+}
 
-  ports {
-    internal = var.internal_port
-    external = var.external_port
-    ip       = "127.0.0.1"
-  }
+moved {
+  from = docker_container.nginx
+  to   = module.nginx.docker_container.nginx
 }
