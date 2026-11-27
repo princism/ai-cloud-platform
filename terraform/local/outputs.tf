@@ -22,3 +22,28 @@ output "network_id" {
   value       = docker_network.ai_network.id
 }
 
+output "existing_bridge_id" {
+  description = "Existing Docker bridge network ID"
+  value       = data.docker_network.existing_bridge.id
+}
+
+output "existing_bridge_driver" {
+  description = "Existing Docker bridge network driver"
+  value       = data.docker_network.existing_bridge.driver
+}
+
+output "existing_bridge_subnets" {
+  description = "Existing Docker bridge network subnets"
+  value = [
+    for config in data.docker_network.existing_bridge.ipam_config :
+    config.subnet
+  ]
+}
+
+output "project_network_subnets" {
+  description = "Project Docker network subnets"
+  value = [
+    for config in data.docker_network.project_network.ipam_config :
+    config.subnet
+  ]
+}
