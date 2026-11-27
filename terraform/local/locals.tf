@@ -10,4 +10,12 @@ locals {
     environment = local.environment
     managed_by  = "terraform"
   }
+  nginx_instances = {
+    dev = {
+      port = 8091
+    }
+    prod = {
+      port = 8093
+    }
+  }
 }
